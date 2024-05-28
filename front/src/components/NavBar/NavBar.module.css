@@ -1,0 +1,10 @@
+.containerNav{
+    background-color: #fff;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 400px;
+    color: #989898;
+    font-size: 16px;
+    
+}
