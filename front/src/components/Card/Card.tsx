@@ -5,7 +5,7 @@ import React from 'react'
 
 const Card:React.FC <IProduct> = ({name,description,price,stock,image,categoryId}) => {
   return (
-    <div className=' w-1/4 flex flex-col max-w-[200px] border border-[rgba(0, 0, 0, 0.45)]'>
+    <div className='  flex flex-col max-w-[200px] border border-[rgba(0, 0, 0, 0.45)]'>
       <img src={image} alt={name} />
       <div key={name} className='bg-[#F3F3F3] p-3 border border-[rgba(0, 0, 0, 0.45)] flex flex-col gap-3'>
         <h2 className='text-[rgba(25, 6, 61, 0.78)] font-bold text-[14px]'>{name}</h2>
