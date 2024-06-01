@@ -77,6 +77,9 @@
 
 
 "use client"
+import { validateLoginForm } from '@/helpers/formValidation';
+import { LoginErrorProps } from '@/types';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 const Login = () => {
@@ -84,15 +87,47 @@ const Login = () => {
         email: "",
         password: ""
     });
-    const [errorUser, setErrorUser] = useState();
+    const [errorUser, setErrorUser] = useState<LoginErrorProps>(
+        {
+            email: "",
+            password: ""
+        }
+    );
+    const [isTouched, setIsTouched] = useState(false);
 
-    const handleChange = () => {
-        // Manejar el cambio
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setDataUser(
+            {
+               ...dataUser,
+                [e.target.name]: e.target.value
+            }
+        )
+
     }
-
-    const handleSubmit = () => {
+    console.log(dataUser)
+    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log("submit exitoso")
+        alert("inicio de sesion exitoso")
         // Manejar el envío del formulario
     }
+    // useEffect(() => {
+    //     const errors=validateLoginForm(dataUser); 
+    //     setErrorUser(errors)
+    // },[dataUser])
+
+    useEffect(() => {
+        if (isTouched) { // ⬅️ Solo validar si el formulario ha sido tocado
+            const errors = validateLoginForm(dataUser);
+            setErrorUser(errors);
+        }
+    }, [dataUser, isTouched]); // ⬅️ Añadir isTouched como dependencia
+
+    const handleBlur = () => {
+        setIsTouched(true); // ⬅️ Marcar el formulario como tocado en el primer blur
+    };
+
+
 
     return (
         <div className='flex flex-col md:flex-row w-full h-screen'>
@@ -103,6 +138,7 @@ const Login = () => {
                         <p className='text-base'>Bienvenido</p>
                     </div>
                     <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-10 py-2'>
+                        <div>
                         <input
                             className='p-3 border rounded-md w-[300px]'
                             id='email-address'
@@ -111,9 +147,14 @@ const Login = () => {
                             value={dataUser.email}
                             required
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder='Correo'
                         />
-                        <input
+                        {errorUser.email && <p className='text-red-500 font-extralight'>{errorUser.email}</p>}
+                        </div>
+                       
+                       <div>
+                       <input
                             className='p-3 border rounded-md w-[300px]'
                             id='password'
                             type='password'
@@ -121,13 +162,20 @@ const Login = () => {
                             value={dataUser.password}
                             required
                             onChange={handleChange}
+                            onBlur={handleBlur}
                             placeholder='Contraseña'
                         />
-                    </form>
+                        {errorUser.password && <p className='text-red-500 font-extralight'>{errorUser.password}</p>}
+
+                       </div>
+                        
+
                     <button type='submit' className='bg-[#F7AE50] border rounded-md px-6 py-3 w-3/4'>Inicia Sesión</button>
+                    </form>
+                    
                     <div className='flex flex-row gap-4'>
                         <p>No tienes cuenta?</p>
-                        <span className='text-[#F7AE50] font-semibold'>Registrate</span>
+                         <Link href="/register"><span className='text-[#F7AE50] font-semibold'>Registrate</span></Link>
                     </div>
                 </div>
             </div>

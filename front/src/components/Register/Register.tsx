@@ -1,6 +1,9 @@
 
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { validateRegisterForm } from '@/helpers/formValidation'
+import { RegisterErrorProps } from '@/types'
 
 const Register = () => {
     const [dataUser,setUserData]= useState(
@@ -12,11 +15,35 @@ const Register = () => {
             phone:''
         }
     )
-    const [errorUser,setErrorUser]= useState()
-    const handleChange =() => { }
-    const handleSubmit =() => { }
+    const [errorUser,setErrorUser]= useState<RegisterErrorProps>(
+        {
+            email:'',
+            password:'',
+            name:'',
+            address:'',
+            phone:''
+        }
+    )
+    const handleChange =(e:React.ChangeEvent<HTMLInputElement>) => { 
+        setUserData({
+           ...dataUser,
+            [e.target.name]:e.target.value
+        })
+    }
+    const handleSubmit =(e:React.FormEvent<HTMLFormElement>) => { 
+        e.preventDefault()
+        
+        console.log("usuario registrado")
+        alert("usuario registrado")
+    }
     
+    useEffect(() => {
+        const error= validateRegisterForm(dataUser)
+        setErrorUser(error)
 
+    },[dataUser])
+
+    console.log(dataUser)
   return (
     <div className='flex flex-col md:flex-row w-full h-screen'>
             <div className='flex justify-center items-center w-full md:w-1/2 p-4'>
@@ -26,6 +53,7 @@ const Register = () => {
                         <p className='text-base'>No tienes una cuenta?</p>
                     </div>
                     <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-7 py-2'>
+                        <div>
                         <input
                             className='p-3 border rounded-md w-[300px]'
                             id='email-address'
@@ -36,7 +64,11 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder='Correo'
                         />
-                        <input
+                        {errorUser.email && <p className='text-red-500 font-extralight'>{errorUser.email}</p>}
+                        </div>
+                       
+                       <div>
+                       <input
                             className='p-3 border rounded-md w-[300px]'
                             id='password'
                             type='password'
@@ -46,7 +78,10 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder='Contraseña'
                         />
-
+                        {errorUser.password && <p className='text-red-500 font-extralight'>{errorUser.password}</p>}
+                       </div>
+                        
+                        <div>
                         <input
                             className='p-3 border rounded-md w-[300px]'
                             id='name'
@@ -57,18 +92,24 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder='Nombre completo'
                         />
-
-                        <input
-                            className='p-3 border rounded-md w-[300px]'
-                            id='address'
-                            type='text'
-                            name='address'
-                            value={dataUser.address}
-                            required
-                            onChange={handleChange}
-                            placeholder='Direccion'
-                        />
-
+                        {errorUser.name && <p className='text-red-500 font-extralight'>{errorUser.name}</p>}
+                        </div>
+                        
+                        <div>
+                            <input
+                                className='p-3 border rounded-md w-[300px]'
+                                id='address'
+                                type='text'
+                                name='address'
+                                value={dataUser.address}
+                                required
+                                onChange={handleChange}
+                                placeholder='Direccion'
+                            />
+                            {errorUser.address && <p className='text-red-500 font-extralight'>{errorUser.address}</p>}
+                        </div>
+                       
+                        <div>
                         <input
                             className='p-3 border rounded-md w-[300px]'
                             id='phone'
@@ -79,11 +120,16 @@ const Register = () => {
                             onChange={handleChange}
                             placeholder='Numero de telefono'
                         />
-
-                        
-                    </form>
+                        {errorUser.phone && <p className='text-red-500 font-extralight'>{errorUser.phone}</p>}
+                        </div>
+                       
                     <button type='submit' className='bg-[#F7AE50] border rounded-md px-6 py-3 w-3/4'>Registrar</button>
+                    </form>
                     
+                    <div className='flex flex-row gap-4'>
+                        <p>Tengo una cuenta!</p>
+                         <Link href="/login"><span className='text-[#F7AE50] font-semibold'>Inicia Sesión</span></Link>
+                    </div>
                 </div>
             </div>
             <div className='hidden md:block w-full md:w-1/2 h-full'>
