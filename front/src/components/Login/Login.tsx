@@ -81,8 +81,11 @@ import { validateLoginForm } from '@/helpers/formValidation';
 import { LoginErrorProps } from '@/types';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { login } from '@/helpers/auth.helper';
 
 const Login = () => {
+    const router=useRouter()
     const [dataUser, setDataUser] = useState({
         email: "",
         password: ""
@@ -105,12 +108,38 @@ const Login = () => {
 
     }
     console.log(dataUser)
-    const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("submit exitoso")
-        alert("inicio de sesion exitoso")
-        // Manejar el envío del formulario
+
+
+    // const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
+    //     e.preventDefault();
+    //     console.log("submit exitoso")
+    //     alert("inicio de sesion exitoso")
+    //     // Manejar el envío del formulario
+    // }
+
+    const handleSubmit =async(e:React.FormEvent<HTMLFormElement>) => { 
+        e.preventDefault()
+        try {
+            const response= await login(dataUser)
+            console.log(response)
+            const {token,user}=response;
+            localStorage.setItem('userSession', JSON.stringify({token:token , userData: user}))
+            //redirigir al usuario
+            alert("login Exitoso")
+            router.push('/')
+            //informar el resultado de la operacion 
+        } catch (error:any) {
+            throw new Error(error)
+            
+        }
+        
     }
+
+
+
+
+
+
     // useEffect(() => {
     //     const errors=validateLoginForm(dataUser); 
     //     setErrorUser(errors)

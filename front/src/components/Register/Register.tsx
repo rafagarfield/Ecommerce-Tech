@@ -4,8 +4,11 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { validateRegisterForm } from '@/helpers/formValidation'
 import { RegisterErrorProps } from '@/types'
+import { register } from '@/helpers/auth.helper'
+import { useRouter } from 'next/navigation'
 
 const Register = () => {
+    const router = useRouter()
     const [dataUser,setUserData]= useState(
         {
             email:'',
@@ -30,11 +33,20 @@ const Register = () => {
             [e.target.name]:e.target.value
         })
     }
-    const handleSubmit =(e:React.FormEvent<HTMLFormElement>) => { 
+    const handleSubmit =async(e:React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault()
+        try {
+             await register(dataUser)
+            
+            //redirigir al usuario
+            alert("Registro Exitoso")
+            router.push('/login')
+            //informar el resultado de la operacion 
+        } catch (error:any) {
+            throw new Error(error)
+            
+        }
         
-        console.log("usuario registrado")
-        alert("usuario registrado")
     }
     
     useEffect(() => {

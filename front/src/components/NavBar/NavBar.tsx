@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
 
   return (
     <div>
-      <nav className="flex items-center justify-between p-4 bg-white shadow-md">
+      <nav className="flex items-center justify-between p-8 bg-white shadow-md">
         <div>
           <Link href="/">
             <Image src="/LOGOM4.svg" alt='logo' width={120} height={20} />
@@ -46,26 +46,28 @@ const NavBar: React.FC = () => {
         </div>
         <ul className="hidden md:flex flex-row gap-8">
           <li>
-            <Link href="/" className="hover:text-black hover:font-bold">Inicio</Link>
+            <Link href="/" className="hover:bg-zinc-300 px-2 py-1  rounded-md">Inicio</Link>
           </li>
           <li>
-            <Link href="/" className="hover:text-black hover:font-bold">Nosotros</Link>
+            <Link href="/" className="hover:bg-zinc-300 px-2 py-1  rounded-md">Nosotros</Link>
           </li>
           <li>
-            <Link href="/" className="hover:text-black hover:font-bold">Tienda</Link>
+            <Link href="/" className="hover:bg-zinc-300 px-2 py-1  rounded-md">Tienda</Link>
           </li>
           <li>
-            <Link href="/" className="hover:text-black hover:font-bold">Contactanos</Link>
+            <Link href="/" className="hover:bg-zinc-300 px-2 py-1  rounded-md">Contactanos</Link>
           </li>
         </ul>
         <div className="hidden md:flex items-center gap-6">
+          <input  className="border border-[rgba(0, 0, 0, 0.45)] rounded-md px-1"  type="text" placeholder='Buscar...'/>
           <Link href="/login" className="hover:text-black hover:font-bold">Login</Link>
-          <Link href="/">
+          {/* <Link href="/">
             <Image src="/lupa.svg" alt='lupa buscador' width={20} height={20} />
-          </Link>
+          </Link> */}
           <Link href="/">
             <Image src="/carrito real.svg" alt='carrito de compras' width={20} height={20} />
           </Link>
+          
         </div>
         <div className="md:hidden">
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-black">
