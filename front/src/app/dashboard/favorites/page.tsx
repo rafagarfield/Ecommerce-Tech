@@ -3,7 +3,7 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      <h1>Car view</h1>
+      pagina de favoritos
     </div>
   )
 }

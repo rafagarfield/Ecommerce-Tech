@@ -40,3 +40,23 @@ export interface RegisterErrorProps{
     address?:string;
     phone?:string;
 }
+
+export interface userSession{
+    token:string;
+    userData:{
+        adress:string;
+        email:string;
+        id:number;
+        name:string;
+        phone:string;
+        role:string;
+        orders:[]
+    }
+}
+
+export interface IOrder{
+    id:number;
+    status:string;
+    date:Date;
+    products:IProduct[];
+}

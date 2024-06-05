@@ -26,7 +26,6 @@ export async function getProducts() {
         try {
             const products = await getProducts()
             const product = products.find((product) => product.id.toString() === id)
-            console.log("hola soy el objeto producto por id encontrado " ,  product)
             if(!product) throw new Error("Product not found")
             return product
         } catch (error:any) {

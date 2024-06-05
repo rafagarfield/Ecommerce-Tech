@@ -29,12 +29,27 @@
 
 "use client"; // Agregar esta línea
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { userSession } from '@/types';
+import { usePathname } from 'next/navigation';
 
 const NavBar: React.FC = () => {
+  const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const [userData,setUserData] = useState<userSession>();
+
+  useEffect(() =>{
+
+    if(typeof window !== 'undefined' && window.localStorage){
+      const userData= localStorage.getItem('userSession')
+      setUserData(JSON.parse(userData!));
+    }
+  },[pathname])
+
+
 
   return (
     <div>
@@ -59,14 +74,24 @@ const NavBar: React.FC = () => {
           </li>
         </ul>
         <div className="hidden md:flex items-center gap-6">
+          
+          <Image src="/lupa.svg" alt='lupa buscador' width={20} height={20} />
           <input  className="border border-[rgba(0, 0, 0, 0.45)] rounded-md px-1"  type="text" placeholder='Buscar...'/>
-          <Link href="/login" className="hover:text-black hover:font-bold">Login</Link>
-          {/* <Link href="/">
-            <Image src="/lupa.svg" alt='lupa buscador' width={20} height={20} />
-          </Link> */}
+          {/* <Link href="/login" className="hover:text-black hover:font-bold">Login</Link> */}
           <Link href="/">
             <Image src="/carrito real.svg" alt='carrito de compras' width={20} height={20} />
           </Link>
+
+          {
+          userData?.token ? (<div className='flex flex row justify-center items-center mx-4 gap-1'>
+          <Image src="/user.svg" alt='logo usuario' width={30} height={30} />
+          <p>{userData?.userData.name}</p>
+          </div>) : 
+          (<Link href="/login" className="rounded-md px-3 py-1 bg-[#F7AE50] hover:bg-[#E99240] ;
+
+          ">Login</Link>)
+          }
+          
           
         </div>
         <div className="md:hidden">

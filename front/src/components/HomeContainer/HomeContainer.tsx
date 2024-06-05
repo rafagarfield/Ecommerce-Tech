@@ -21,6 +21,7 @@ const HomeContainer = async () => {
       <Benefits/>
       <ContainerCategory/>
       <Cards  products={products}/>
+      <Benefits/>
       
     </div>
   )
