@@ -115,7 +115,7 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
         else {
           cart.push(product)
           localStorage.setItem("cart", JSON.stringify(cart));
-          alert('este producto agregado a tu carrito!');
+          alert('Producto agregado a tu carrito!');
           router.push("/cart")
         }
 
@@ -124,7 +124,7 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
   }
 
   return (
-    <div className='flex flex-col md:flex-row'>
+    <div className='flex flex-col md:flex-row  '>
 
       <div className='md:w-1/2'>
         <div className='flex justify-center bg-[#fff] p-6 m-3 border ml-10'>

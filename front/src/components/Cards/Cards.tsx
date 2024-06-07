@@ -50,7 +50,7 @@ const Cards: React.FC<{ products: IProduct[]  }> = ({ products }) => {
 
   return (
     <>
-    <h1 className='text-center font-medium text-4xl text-zinc-900 m-8'>Productos Populares</h1>
+    <h1 className='text-center font-medium text-4xl text-zinc-900 m-8'>Productos</h1>
     <div className='flex w-[100%] items-start content-start gap-x-[100px] gap-y-[120px] flex-wrap justify-center p-10'> 
        {products?.map((product) => { 
          return(

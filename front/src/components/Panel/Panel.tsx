@@ -56,6 +56,7 @@
 
 // export default Panel
 
+import Link from 'next/link';
 import React from 'react';
 
 const Panel = () => {
@@ -68,7 +69,7 @@ const Panel = () => {
           <h1 className="text-[36px] md:text-[48px] lg:text-[64px] font-bold  ">Los mejores Smartphones</h1>
           <div className="flex flex-col lg:flex-row">
             <div className="flex flex-col gap-10 justify-center p-0 items-start">
-              <button className="bg-red-500 px-8 py-3 rounded-md">Ir a la tienda</button>
+              <Link href="/store"><button  className="bg-red-500 px-8 py-3 rounded-md">Ir a la tienda</button></Link>
               <p>Nos aseguramos que tengas los smartphones más exclusivos en nuestros espacios.</p>
             </div>
             <img src="/ImagesC/s3.png" alt="imagen smartphone" className="mt-5 lg:mt-0 w-[400px] h-[400px]" />
