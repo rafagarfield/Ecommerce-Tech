@@ -1,7 +1,16 @@
+"use client"
+
 import React from 'react'
 import Image from 'next/image';
 
 const Dashboard = () => {
+
+  const clearSesion = () => {
+    localStorage.clear();
+    window.location.href = '/login';
+  }
+
+
   return (
     <div className='m-4'>
        <div className='flex justify-center items-center'>
@@ -15,7 +24,7 @@ const Dashboard = () => {
         </div>
         
 
-        <button className='bg-[#222222] border rounded-md px-6 py-3 text-white hover:bg-[#454545]'>Cerrar Sesión</button>
+        <button onClick={clearSesion} className='bg-[#222222] border rounded-md px-6 py-3 text-white hover:bg-[#454545]'>Cerrar Sesión</button>
       </div>
       
     </div>

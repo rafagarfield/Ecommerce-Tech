@@ -11,15 +11,15 @@ const Footer = () => {
                 <div className='flex flex-row gap-16'>
                     <div className='flex flex-col gap-2'>
                         <div className='flex flex-row gap-3'>
-                        <Image src="Asset/location.svg" alt='location' width={20} height={20} />
+                        <Image src="/Asset/location.svg" alt='location' width={20} height={20} />
                         <p> Ayacucho-Peru</p>
                         </div>
                         <div className='flex flex-row gap-3'>
-                        <Image src="Asset/call.svg" alt='phone' width={20} height={20} />
+                        <Image src="/Asset/call.svg" alt='phone' width={20} height={20} />
                         <p>666-123-243</p>
                         </div>
                         <div className='flex flex-row gap-3'>
-                        <Image src="Asset/message.svg" alt='message' width={20} height={20} />
+                        <Image src="/Asset/message.svg" alt='message' width={20} height={20} />
                         <p>rgtech@tecnology.com</p>
                         </div>
                         
@@ -33,9 +33,9 @@ const Footer = () => {
             </div>
 
             <div className='flex flex-col gap-4'>
-                <Image src="Asset/facebook.svg" alt='logo usuario2' width={30} height={30} />
-                <Image src="Asset/instagram.svg" alt='logo usuario2' width={30} height={30} />
-                <Image src="Asset/twitter.svg" alt='logo usuario2' width={30} height={30} />
+                <Image src="/Asset/facebook.svg" alt='logo usuario2' width={30} height={30} />
+                <Image src="/Asset/instagram.svg" alt='logo usuario2' width={30} height={30} />
+                <Image src="/Asset/twitter.svg" alt='logo usuario2' width={30} height={30} />
 
             </div>
 

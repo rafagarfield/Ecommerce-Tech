@@ -32,14 +32,20 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { userSession } from '@/types';
+import { IProduct, userSession } from '@/types';
 import { usePathname } from 'next/navigation';
+import { getProducts } from '@/helpers/product.helper';
 
 const NavBar: React.FC = () => {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
   const [userData, setUserData] = useState<userSession>();
+  const [products,setProducts] = useState<IProduct[]>([]);
+  const [search,setSearch] = useState("")
+  const [filterData,setFilterData] = useState<IProduct[]>([])
+
+  
+
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -47,6 +53,41 @@ const NavBar: React.FC = () => {
       setUserData(JSON.parse(userData!));
     }
   }, [pathname]);
+
+  //buscador 
+
+
+  useEffect(() =>{
+    const getAllProducts = async()=>{
+      const productsData:IProduct[]= await getProducts();
+      if(productsData) setProducts(productsData);
+    }
+    getAllProducts();
+  
+  },[])
+
+ 
+  const handleChangeSearch = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const filtered:IProduct[]= products.filter((product)=>{
+      return product.name.toLowerCase().includes(search.toLowerCase());
+    })
+    setFilterData(filtered);
+      setSearch(e.target.value);
+  }
+  useEffect(() =>{
+    if(search.trim()===""){
+      setSearch("")
+      setFilterData([]);
+    }
+  },[search])
+
+  const resetSearch = () =>{
+    setSearch("");
+    setFilterData([]);
+  }
+
+
+    
 
   return (
     <div>
@@ -75,7 +116,28 @@ const NavBar: React.FC = () => {
         </ul>
         <div className="hidden md:flex items-center gap-6">
           <Image src="/lupa.svg" alt="lupa buscador" width={20} height={20} />
-          <input className="border border-[rgba(0, 0, 0, 0.45)] rounded-md px-1" type="text" placeholder="Buscar..." />
+          <div className='relative'>
+            <input autoComplete='off' onChange={handleChangeSearch} className="border border-[rgba(0, 0, 0, 0.45)] rounded-md px-1" type="text" placeholder="Buscar..." />
+          {filterData.length>0 &&
+            <ul className='absolute left-0  border-gray-400 border bg-white rounded-sm  w-full p-4'>
+
+              {filterData.map((item) => (
+                <li key={item.id}>
+                  <Link onClick={resetSearch} href={`/product/${item.id}`}>
+                    <p className=' hover:text-black hover:font-medium'>{item.name}</p>
+                    
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          }
+          </div>
+
+        
+
+          
+          
+
           <Link href="/cart">
             <Image src="/carrito real.svg" alt="carrito de compras" width={20} height={20} />
           </Link>
