@@ -3,18 +3,13 @@ import Cards from '../Cards/Cards'
 import Panel from "@/components/Panel/Panel";
 import Benefits from "@/components/Benefits/Benefits";
 import ContainerCategory from "@/components/ContainerCategory/ContainerCategory";
-import productsPreload from '@/helpers/data';
-import { IProduct } from '@/types';
+
 import { getProducts } from '@/helpers/product.helper';
-// import { getProductsDB } from '@/helpers/product.helper';
 
 
 const HomeContainer = async () => {
-
-
   const products = await getProducts();
 
-  
   return (
     <div>
       <Panel/>
@@ -22,6 +17,7 @@ const HomeContainer = async () => {
       <ContainerCategory/>
       <Cards  products={products}/>
       <Benefits/>
+      
       
     </div>
   )

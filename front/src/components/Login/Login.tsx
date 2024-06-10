@@ -1,81 +1,3 @@
-
-// "use client"
-// import React from 'react'
-// import { useState,useEffect } from 'react'
-
-// const Login = () => {
-//     const [dataUser,setDataUser]= useState({
-//         email:"",
-//         password:""
-//     });
-//     const [errorUser,setErrorUser]= useState();
-
-//     const handleChange = () => {
-       
-//     }
-
-//     const handleSubmit = () => {
-        
-//     }
-
-//   return (
-//     <div className='flex  flex-row w-full  h-lvh'>
-//         <div className='flex justify-center items-center  w-1/2'>
-//             <div className='flex flex-col gap-10 px-16 justify-center items-center ' >
-//                 <div className='text-black flex flex-col justify-center items-center gap-2'>
-//                     <h1 className='text-4xl font-bold'>Inicia Sesión</h1>
-//                     <p className='text-base'>Bienvenido</p>
-//                 </div>
-                
-//                 <form onSubmit={handleSubmit} className='flex flex-col justify-center items-center gap-10 py-[2px] '>
-                    
-//                         <input className='p-3 border rounded-md w-[300px]'
-//                             id='email-adress' 
-//                             type='email'
-//                             name='email'
-//                             value={dataUser.email}
-//                             required
-//                             onChange={handleChange}
-//                             placeholder='Correo'
-//                         />
-                   
-
-//                     <div>
-//                     <input className='p-3 border rounded-md w-[300px]'
-//                             id='password' 
-//                             type='password'
-//                             name='password'
-//                             value={dataUser.password}
-//                             required
-//                             onChange={handleChange}
-//                             placeholder='Contraseña'
-//                         />
-//                     </div>
-                    
-
-//                 </form>
-        
-//                 <button  type='submit' className='bg-[#F7AE50] border rounded-md px-[30px] py-[15px] w-3/4'>Inicia Sesión</button>
-//                 <div className='flex flex-row gap-4'>
-//                     <p>No tienes cuenta?</p>
-//                     <span  className='text-[#F7AE50] font-semibold'>Registrate</span>
-//                 </div>
-//             </div>
-
-//         </div>
-
-//         <div>
-//             <img className='' src="/ILogin/login.png" alt=" imagen de login" />
-//         </div>
-      
-//     </div>
-//   )
-// }
-
-// export default Login
-
-
-
 "use client"
 import { validateLoginForm } from '@/helpers/formValidation';
 import { LoginErrorProps } from '@/types';
@@ -109,19 +31,11 @@ const Login = () => {
     }
     console.log(dataUser)
 
-
-    // const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault();
-    //     console.log("submit exitoso")
-    //     alert("inicio de sesion exitoso")
-    //     // Manejar el envío del formulario
-    // }
-
     const handleSubmit =async(e:React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault()
         try {
             const response= await login(dataUser)
-            console.log(response)
+            
             const {token,user}=response;
             localStorage.setItem('userSession', JSON.stringify({token:token , userData: user}))
             //redirigir al usuario
@@ -135,16 +49,6 @@ const Login = () => {
         
     }
 
-
-
-
-
-
-    // useEffect(() => {
-    //     const errors=validateLoginForm(dataUser); 
-    //     setErrorUser(errors)
-    // },[dataUser])
-
     useEffect(() => {
         if (isTouched) { // ⬅️ Solo validar si el formulario ha sido tocado
             const errors = validateLoginForm(dataUser);
@@ -155,9 +59,6 @@ const Login = () => {
     const handleBlur = () => {
         setIsTouched(true); // ⬅️ Marcar el formulario como tocado en el primer blur
     };
-
-
-
     return (
         <div className='flex flex-col md:flex-row w-full h-screen'>
             <div className='flex justify-center items-center w-full md:w-1/2 p-4'>

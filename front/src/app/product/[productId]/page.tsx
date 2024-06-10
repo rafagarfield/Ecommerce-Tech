@@ -80,6 +80,7 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
   const router = useRouter();
   const [product,setProduct]=useState<IProduct>();
   const [userData,setUserData] = useState<userSession>();
+ 
 
   useEffect(() => {
 
@@ -113,7 +114,7 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
           router.push("/cart")
         }
         else {
-          cart.push(product)
+          cart.push({...product,count:1})
           localStorage.setItem("cart", JSON.stringify(cart));
           alert('Producto agregado a tu carrito!');
           router.push("/cart")
@@ -123,6 +124,7 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
 
   }
 
+ 
   return (
     <div className='flex flex-col md:flex-row  '>
 
@@ -152,7 +154,11 @@ const DetailsId = ({params}:{params:{productId:string}}) => {
               <p className='text-white px-1 py-2 border rounded-xl bg-black w-[50px] text-center'>{product?.stock}</p>
               <p className='text-lg font-medium'>Equipos disponibles</p>
             </div>
-            <button id={product?.id.toString()} onClick={handleAddToCart}  className='py-2 px-3 text-center bg-[#F22D36] border rounded-md text-white w-1/2 flex justify-center'>Agregar al carrito</button>
+              
+              <div className='flex flex-row gap-3'>
+                <button id={product?.id.toString()} onClick={handleAddToCart}  className='py-2 px-3 text-center bg-[#F22D36] border rounded-md text-white w-1/2 flex justify-center'>Agregar al carrito</button>
+              </div>
+              
             
           </div>
 

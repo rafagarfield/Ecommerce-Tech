@@ -27,23 +27,25 @@
 
 // export default NavBar
 
-"use client"; // Agregar esta línea
+"use client";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IProduct, userSession } from '@/types';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { getProducts } from '@/helpers/product.helper';
+useRouter
 
 const NavBar: React.FC = () => {
+  const router= useRouter()
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [userData, setUserData] = useState<userSession>();
   const [products,setProducts] = useState<IProduct[]>([]);
   const [search,setSearch] = useState("")
   const [filterData,setFilterData] = useState<IProduct[]>([])
-
+  const[counterCart,setCounterCart] = useState<number>(0)
   
 
 
@@ -54,9 +56,17 @@ const NavBar: React.FC = () => {
     }
   }, [pathname]);
 
+  // contador del carrito
+  useEffect(()=>{
+    if(typeof window!== 'undefined' && window.localStorage){
+      const cartData = localStorage.getItem('cart');
+      if(cartData){
+        setCounterCart(JSON.parse(cartData!).length)
+      }
+    }
+  },[pathname])
+
   //buscador 
-
-
   useEffect(() =>{
     const getAllProducts = async()=>{
       const productsData:IProduct[]= await getProducts();
@@ -85,6 +95,7 @@ const NavBar: React.FC = () => {
     setSearch("");
     setFilterData([]);
   }
+
 
 
     
@@ -133,13 +144,11 @@ const NavBar: React.FC = () => {
           }
           </div>
 
-        
+      
 
-          
-          
-
-          <Link href="/cart">
+          <Link className='flex flex-row gap-2' href="/cart">
             <Image src="/carrito real.svg" alt="carrito de compras" width={20} height={20} />
+            <span>{counterCart}</span>
           </Link>
           {userData?.token ? (
             <div className="flex flex-row justify-center items-center mx-4 gap-1">

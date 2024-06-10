@@ -58,6 +58,7 @@ const Cards: React.FC<{ products: IProduct[]  }> = ({ products }) => {
            <Link key={product.id} href={`/product/${product.id}`}>
              <Card {...product} /> 
            </Link> 
+           
          )
        })}
     </div>

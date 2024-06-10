@@ -10,6 +10,9 @@ export  interface IProduct {
 
 }
 
+export interface IOrderProduct extends IProduct {
+    count?:number ;
+}
 export interface ICategory {
     name: string;
 }
@@ -44,7 +47,7 @@ export interface RegisterErrorProps{
 export interface userSession{
     token:string;
     userData:{
-        adress:string;
+        address:string;
         email:string;
         id:number;
         name:string;
@@ -58,5 +61,6 @@ export interface IOrder{
     id:number;
     status:string;
     date:Date;
-    products:IProduct[];
+    products:IOrderProduct[];
 }
+

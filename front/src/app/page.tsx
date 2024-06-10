@@ -8,8 +8,6 @@ export default function Home() {
      
       <HomeContainer/>
 
-      
-      
     </div>
     </>
   );
