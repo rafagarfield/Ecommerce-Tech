@@ -38,6 +38,8 @@ const Cart = () => {
     setTotal(totalcart);
   }, [cart]);
 
+
+
   const handleClick = async () => {
     const idProducts = new Set(cart.map((product) => product.id));
     console.log(idProducts);
@@ -78,6 +80,14 @@ const Cart = () => {
     });
   };
 
+  //eliminar producto
+  const deleteProduct= (id:number) => {
+    const cart = JSON.parse(localStorage.getItem('cart') || "[]");
+    const filterProducts:IOrderProduct[] = cart?.filter((product:any) => product.id !== id);
+    localStorage.setItem('cart', JSON.stringify(filterProducts));
+    setCart(filterProducts);
+  }
+
   return (
     <div>
       <h1 className='font-medium text-2xl p-4 text-zinc-900 pt-10'>Carrito de Compras</h1>
@@ -108,11 +118,15 @@ const Cart = () => {
                           <div className='flex flex-col justify-center font-medium'>
                             <p>{cart.name}</p>
                             <p>$ {cart.price}</p>
-                            <div className='flex flex-row gap-4 bg-[#F3F3F3] p-1 border rounded-md w-[80px] justify-center'>
-                              <Image onClick={() => handleClickLess(cart.id)} src="/star/Line 5.svg" alt='menos' width={20} height={5} />
-                              <span className='text-lg font-semibold'>{cart.count}</span>
-                              <Image onClick={() => handleClickPlus(cart.id)} src="/star/Group 52.svg" alt='mas' width={20} height={5} />
+                            <div className='flex flex-row gap-4'>
+                              <div className='flex flex-row gap-4 bg-[#F3F3F3] p-1 border rounded-md w-[80px] justify-center'>
+                                <Image onClick={() => handleClickLess(cart.id)} src="/star/Line 5.svg" alt='menos' width={20} height={5} />
+                                <span className='text-lg font-semibold'>{cart.count}</span>
+                                <Image onClick={() => handleClickPlus(cart.id)} src="/star/Group 52.svg" alt='mas' width={20} height={5} />
+                              </div>
+                              <button onClick={()=> deleteProduct(cart.id)}>🗑️</button>
                             </div>
+                           
                           </div>
                         </div>
                         <hr />
